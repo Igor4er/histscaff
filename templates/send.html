@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Розмиємо бездну</title>
+    <style>
+        body{
+        background-color: #222222;
+        color: #eeeeee;
+        letter-spacing: 0.35px;
+        }
+        .instruction{
+        color: #ececec;
+        font-size: 22px;
+        margin-top: 1024px;
+        }
+        .message {
+        font-family: sans-serif;
+        }
+        .message-info{
+        color: #3bafe5;
+        }
+        .message-error{
+        color: #dd4646;
+        }
+        .message-success{
+        color: #8bdbb6;
+        }
+        .message-warning{
+        color: #ffd635;
+        }
+        a{
+        color: #CDCDCD;
+        text-decoration: underline;
+        }
+        a:visited{
+        color: #A6A6A7;
+        text-decoration: underline;
+        }
+        .connreq{
+        border: 1px solid white;
+        margin-top: 25px;
+        padding: 0px 0px 5px 10px;
+        }
+        .connasteacher{
+        border: 2px solid red;
+        }
+        table{
+        border: 1px solid gray;
+        }
+        .bord{
+        border: 1px solid white;
+        padding-left: 15px;
+        margin-top: 19px;
+        }
+        .marg{
+        margin: 12px 0px;
+        }
+        .bb {
+            border: 1px solid #eee;
+            padding-left: 1%;
+            padding-top: 1%;
+            padding-bottom: 1%;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .fb {
+            margin-top: 0.4%;
+            margin-bottom: 0.4%;
+            font-size: larger;
+            border: 1px solid #898989;
+            padding: 1vh;
+            background-color: #1f1f1f;
+        }
+        p, h3 {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <script>
+        function srr(letter) {
+            document.forms["fm"][letter].checked = true;
+        }
+    </script>
+</head>
+<body>
+    <a href="{{url_for('rename')}}"><h1>{{name}}</h1></a>
+    <div class="bb">
+        <p><span class="bold">Delay: </span> {{delay}}</p>
+        <p><span class="impulse">Impulse: </span> {{impulse}}</p>
+        <a href="{{url_for('settings')}}"><h3>Settings</h3></a>
+    </div>
+    <br><br><br>
+    <div class="bb">
+        <form action="{{url_for('send')}}" method="post" id="fm">
+            <label for="qn">Question number</label>
+            <input type="number" name="qn" value="{{qn}}">
+
+            <div class="fb" onclick="srr('a')">
+                <input type="radio" name="letter" value="A" id="a">
+                <label for="a">А</label>
+            </div>
+
+            <div class="fb" onclick="srr('b')">
+                <input type="radio" name="letter" value="B" id="b">
+                <label for="b">Б</label> 
+            </div>
+             
+            <div class="fb" onclick="srr('c')">
+                <input type="radio" name="letter" value="C" id="c">
+                <label for="c">В</label>
+            </div>
+
+            <div class="fb" onclick="srr('d')">
+                <input type="radio" name="letter" value="D" id="d">
+                <label for="d">Г</label>
+            </div>
+
+            <div class="fb" onclick="srr('e')">
+                <input type="radio" name="letter" value="E" id="e">
+                <label for="e">Д</label>
+            </div>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class="message">
+        {% for category, message in messages %}
+        <li class="message-{{category}}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+</body>
+</html>

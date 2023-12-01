@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Розмиємо бездну</title>
+    <style>
+        body{
+        background-color: #222222;
+        color: #eeeeee;
+        letter-spacing: 0.35px;
+        }
+        .instruction{
+        color: #ececec;
+        font-size: 22px;
+        margin-top: 1024px;
+        }
+        .message {
+        font-family: sans-serif;
+        }
+        .message-info{
+        color: #3bafe5;
+        }
+        .message-error{
+        color: #dd4646;
+        }
+        .message-success{
+        color: #8bdbb6;
+        }
+        .message-warning{
+        color: #ffd635;
+        }
+        a{
+        color: #CDCDCD;
+        text-decoration: underline;
+        }
+        a:visited{
+        color: #A6A6A7;
+        text-decoration: underline;
+        }
+        .connreq{
+        border: 1px solid white;
+        margin-top: 25px;
+        padding: 0px 0px 5px 10px;
+        }
+        .connasteacher{
+        border: 2px solid red;
+        }
+        table{
+        border: 1px solid gray;
+        }
+        .bord{
+        border: 1px solid white;
+        padding-left: 15px;
+        margin-top: 19px;
+        }
+        .marg{
+        margin: 12px 0px;
+        }
+    </style>
+</head>
+<body>
+    <form action="{{url_for('rename')}}" method="post">
+        <h1>{{name}}</h1>
+        <input type="text" name="name" >
+        <input type="submit" value="Rename">
+    </form>
+    
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" class="inactive">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прихили голову, історіє</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<style>
+html, body {
+    height: 98vh;
+    width: 99vw;
+}
+.ff {
+    width: 99vw;
+    height: 98vh;
+}
+.inactive {
+    background-color: #f11;
+    color: #511;
+}
+.active {
+    background-color: black;
+    color: #aeaeae;
+}
+</style>
+<script>
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    async function vb1000() {
+        let host = window.location.host;
+        while (true) {
+            let infreq = await axios.post("/");
+            //alert(infreq.data.message.length);infreq.data.ok
+            // alert(infreq.data.ok);
+            if (infreq.data.ok) {
+                //alert(infreq.data.message);
+                await window.navigator.vibrate(infreq.data.message);
+            }
+            await delay(1000);
+        }
+    };
+    function activateVb() {
+        document.documentElement.classList.remove("inactive");
+        document.documentElement.classList.add("active");
+    }
+</script>
+<body onload="vb1000()">
+    <div class="ff" onclick="window.navigator.vibrate(300); activateVb();">Не історики творять історію, а люди</div>
+</body>
+</html>
