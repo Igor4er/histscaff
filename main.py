@@ -37,7 +37,7 @@ def send():
     if request.method == 'POST':
         print(request.form)
         message = []
-        message.append(context['impulse'])
+        message.append(int(context['impulse']*0.75))
         message.append(context['delay']*2)
 
         #QN START
