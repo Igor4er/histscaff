@@ -87,7 +87,7 @@ def send():
         print(f"msg: {msg}")
         message += msg
         MESSAGES.append(message)
-        flash("Ok!", 'success')
+        flash(f"Ok!", 'success')
         return render_template('send.html', **context)
     else:
         ...

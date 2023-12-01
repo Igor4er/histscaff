@@ -27,25 +27,37 @@ html, body {
 <script>
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
+    let ready = false;
+
     async function vb1000() {
         let host = window.location.host;
         while (true) {
-            let infreq = await axios.post("/");
-            //alert(infreq.data.message.length);infreq.data.ok
-            // alert(infreq.data.ok);
-            if (infreq.data.ok) {
-                //alert(infreq.data.message);
-                await window.navigator.vibrate(infreq.data.message);
-            }
             await delay(1000);
+            if (ready) {
+                let infreq = await axios.post("/");
+                //alert(infreq.data.message.length);infreq.data.ok
+                // alert(infreq.data.ok);
+                if (infreq.data.ok) {
+                    //alert(infreq.data.message);
+                    await window.navigator.vibrate(infreq.data.message);
+                }
+            }
         }
     };
-    function activateVb() {
+    async function activateVb() {
         document.documentElement.classList.remove("inactive");
         document.documentElement.classList.add("active");
+        ready = true;
+    };
+    function vb() {
+        if (document.documentElement.classList.contains("inactive")) {
+            window.navigator.vibrate(300);
+
+        }
+        
     }
 </script>
 <body onload="vb1000()">
-    <div class="ff" onclick="window.navigator.vibrate(300); activateVb();">Не історики творять історію, а люди</div>
+    <div class="ff" onclick="vb(); activateVb();">Не історики творять історію, а люди</div>
 </body>
 </html>
