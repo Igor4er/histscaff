@@ -34,7 +34,11 @@ html, body {
         while (true) {
             await delay(1000);
             if (ready) {
-                let infreq = await axios.post("/");
+                let infreq = await axios.post("/").catch(async (e) => {
+                    console.log(e);
+                    await delay(5000);
+                    return {"data": {"ok": false}}
+                });
                 //alert(infreq.data.message.length);infreq.data.ok
                 // alert(infreq.data.ok);
                 if (infreq.data.ok) {
