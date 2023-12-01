@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for, make_response, flash
-import sys
+from flask import Flask, render_template, request, redirect, url_for, make_response, flash, send_from_directory
+import sys, os
 
 MESSAGES = []
 
@@ -114,6 +114,10 @@ def settings():
         resp.set_cookie('delay', request.form.get('delay', default='800', type=str))
         resp.set_cookie('impulse', request.form.get('impulse', default='35', type=str))
     return resp
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=int(port))
