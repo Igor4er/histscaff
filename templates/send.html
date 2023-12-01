@@ -78,6 +78,9 @@
             padding: 0;
             margin: 0;
         }
+        .btnmt {
+            margin-top: 6px;
+        }
     </style>
     <script>
         function srr(letter) {
@@ -122,7 +125,7 @@
                 <input type="radio" name="letter" value="E" id="e">
                 <label for="e">Д</label>
             </div>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" class="btnmt">
         </form>
     </div>
     {% with messages = get_flashed_messages(with_categories=true) %}
