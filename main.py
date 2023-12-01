@@ -46,7 +46,6 @@ def send():
             context.update({'qn': 0})
             flash("No question number has picked", 'warning')
             flash("Question number has set to 0", 'info')
-            print("dsfjhsdbfjhsvdfhjsdvfjh")
             return render_template('send.html', **context)
         context.update({'qn': qn+1})
         message += [int(context['impulse']*0.97)]
@@ -63,7 +62,6 @@ def send():
         if letter is None:
             flash("No letter picked", 'error')
             del context['qn']
-            print("dsfjhsdbfjhsvdfhjsdvfjh")
             return render_template('send.html', **context)
         if letter == 'A':
             imps = [context['impulse']] * 1
