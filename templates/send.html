@@ -81,6 +81,12 @@
         .btnmt {
             margin-top: 6px;
         }
+        .logb {
+            border: 1px solid #252525;
+            padding-left: 1%;
+            padding-top: 1%;
+            padding-bottom: 1%;
+        }
     </style>
     <script>
         function srr(letter) {
@@ -138,10 +144,13 @@
     {% endif %}
     {% endwith %}
     <br><br>
-    <ul>
-        {%for msg in message_log%}
-        <li>{{msg.qn}}. {{msg.letter}}</li>
-        {%endfor%}
-    </ul>
+    <div class="logb">
+        <h3>Message log</h3>
+        <ul>
+            {%for msg in message_log%}
+            <li>{{msg.qn}}. {{msg.letter}}</li>
+            {%endfor%}
+        </ul>
+    </div>
 </body>
 </html>

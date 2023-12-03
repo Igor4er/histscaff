@@ -49,10 +49,11 @@ def send():
     }
     try:
         if len(RECIEVED_MESSAGES) > 0:
-            msg = RECIEVED_MESSAGES.pop(0)
-            if len(MESSAGE_NUMBERS) > 0 and msg:
-                rmn = MESSAGE_NUMBERS.pop(0)
-                flash(f"Reciever got #{rmn}", 'success')
+            while RECIEVED_MESSAGES:
+                msg = RECIEVED_MESSAGES.pop(0)
+                if msg:
+                    rmn = MESSAGE_NUMBERS.pop(0)
+                    flash(f"Reciever got #{rmn}", 'success')
     except:
         ...
     if request.method == 'POST':
