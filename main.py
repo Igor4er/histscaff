@@ -45,8 +45,16 @@ def send():
         "name": request.cookies.get(f'name_{port}', default=port, type=str),
         "delay": request.cookies.get('delay', default=800, type=int),
         "impulse": request.cookies.get('impulse', default=35, type=int),
-        "message_log": VERBOSE_MESSAGES,
+        "message_log": list(reversed(VERBOSE_MESSAGES)),
     }
+    try:
+        if len(RECIEVED_MESSAGES) > 0:
+            msg = RECIEVED_MESSAGES.pop(0)
+            if len(MESSAGE_NUMBERS) > 0 and msg:
+                rmn = MESSAGE_NUMBERS.pop(0)
+                flash(f"Reciever got #{rmn}", 'success')
+    except:
+        ...
     if request.method == 'POST':
         print(request.form)
         message = []
@@ -108,15 +116,7 @@ def send():
                 "qn": qn,
                 "letter": INTO_VERBOSE[letter],
             })
-        except:
-            ...
-
-        try:
-            if len(RECIEVED_MESSAGES) > 0:
-                msg = RECIEVED_MESSAGES.pop(0)
-                if len(MESSAGE_NUMBERS) > 0 and msg:
-                    rmn = MESSAGE_NUMBERS.pop(0)
-                    flash(f"Reciever got #{rmn}", 'success')
+            context['message_log'] = list(reversed(VERBOSE_MESSAGES))
         except:
             ...
         return render_template('send.html', **context)
