@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, make_respo
 import sys, os
 
 MESSAGES = []
+MESSAGE_NUMBERS = []
+RECIEVED_MESSAGES = []
 
 try:
     port = sys.argv[1]
@@ -21,9 +23,11 @@ def info():
     delay = request.cookies.get('delay', default='800', type=str)
     impulse = request.cookies.get('impulse', default='35', type=str)
     if len(MESSAGES) > 0:
+        msg = MESSAGES.pop(0)
+        RECIEVED_MESSAGES.append(msg)
         return {
             "ok": True,
-            "message": MESSAGES.pop(0)
+            "message": msg
         }
     return {"ok": False}
 
@@ -48,6 +52,7 @@ def send():
             flash("Question number has set to 0", 'info')
             return render_template('send.html', **context)
         context.update({'qn': qn+1})
+        MESSAGE_NUMBERS.append(qn)
         message += [int(context['impulse']*0.97)]
         if qn == 0:
             message += [int(context['delay']/4), int(context['impulse']*0.97), int(context['delay']/4), int(context['impulse']*0.97), int(context['delay']*2)]
@@ -88,6 +93,15 @@ def send():
         message += msg
         MESSAGES.append(message)
         flash(f"Ok!", 'success')
+
+        try:
+            if len(RECIEVED_MESSAGES) > 0:
+                msg = RECIEVED_MESSAGES.pop(0)
+                if len(MESSAGE_NUMBERS) > 0 and msg:
+                    rmn = MESSAGE_NUMBERS.pop(0)
+                    flash(f"Reciever got #{rmn}", 'info')
+        except:
+            ...
         return render_template('send.html', **context)
     else:
         ...
