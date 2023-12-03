@@ -4,6 +4,7 @@ import sys, os
 MESSAGES = []
 MESSAGE_NUMBERS = []
 RECIEVED_MESSAGES = []
+VERBOSE_MESSAGES = []
 
 try:
     port = sys.argv[1]
@@ -37,6 +38,7 @@ def send():
         "name": request.cookies.get(f'name_{port}', default=port, type=str),
         "delay": request.cookies.get('delay', default=800, type=int),
         "impulse": request.cookies.get('impulse', default=35, type=int),
+        "message_log": VERBOSE_MESSAGES,
     }
     if request.method == 'POST':
         print(request.form)
@@ -93,6 +95,14 @@ def send():
         message += msg
         MESSAGES.append(message)
         flash(f"Sent!", 'success')
+
+        try:
+            VERBOSE_MESSAGES.append({
+                "qn": qn,
+                "letter": letter
+            })
+        except:
+            ...
 
         try:
             if len(RECIEVED_MESSAGES) > 0:

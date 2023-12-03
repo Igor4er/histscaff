@@ -137,5 +137,11 @@
         </ul>
     {% endif %}
     {% endwith %}
+    <br><br>
+    <ul>
+        {%for msg in message_log%}
+        <li>{{msg.qn}}. {{msg.letter}}</li>
+        {%endfor%}
+    </ul>
 </body>
 </html>
