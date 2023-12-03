@@ -5,6 +5,13 @@ MESSAGES = []
 MESSAGE_NUMBERS = []
 RECIEVED_MESSAGES = []
 VERBOSE_MESSAGES = []
+INTO_VERBOSE = {
+    "A": "А",
+    "B": "Б",
+    "C": "В",
+    "D": "Г",
+    "E": "Д",
+}
 
 try:
     port = sys.argv[1]
@@ -99,7 +106,7 @@ def send():
         try:
             VERBOSE_MESSAGES.append({
                 "qn": qn,
-                "letter": letter
+                "letter": INTO_VERBOSE[letter],
             })
         except:
             ...
