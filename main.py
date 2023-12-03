@@ -92,14 +92,14 @@ def send():
         print(f"msg: {msg}")
         message += msg
         MESSAGES.append(message)
-        flash(f"Ok!", 'success')
+        flash(f"Sent!", 'success')
 
         try:
             if len(RECIEVED_MESSAGES) > 0:
                 msg = RECIEVED_MESSAGES.pop(0)
                 if len(MESSAGE_NUMBERS) > 0 and msg:
                     rmn = MESSAGE_NUMBERS.pop(0)
-                    flash(f"Reciever got #{rmn}", 'info')
+                    flash(f"Reciever got #{rmn}", 'success')
         except:
             ...
         return render_template('send.html', **context)
