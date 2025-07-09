@@ -19,7 +19,7 @@ except IndexError:
     port = '5000'
 
 app = Flask(__name__)
-app.secret_key = b'70e0f8490bdd09f98a6bb365477bec68'
+app.secret_key = b'70e0f8490bdd09f98a6bb365477bec68'  # I know this is not good and I know how to make it good. BUT, this does not matter in this case
 
 @app.route('/', methods=['GET'])
 def host():
