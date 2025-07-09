@@ -1,68 +1,81 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="inactive">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Прихили голову, історіє</title>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-</head>
-<style>
-html, body {
-    height: 98vh;
-    width: 99vw;
-}
-.ff {
-    width: 99vw;
-    height: 98vh;
-}
-.inactive {
-    background-color: #f11;
-    color: #511;
-}
-.active {
-    background-color: black;
-    color: #aeaeae;
-}
-</style>
-<script>
-    const delay = ms => new Promise(res => setTimeout(res, ms));
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Прихили голову, історіє</title>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+    <style>
+        html,
+        body {
+            height: 98vh;
+            width: 99vw;
+        }
+        .ff {
+            width: 99vw;
+            height: 98vh;
+        }
+        .inactive {
+            background-color: #f11;
+            color: #511;
+        }
+        .active {
+            background-color: black;
+            color: #aeaeae;
+        }
+    </style>
+    <script>
+        const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
-    let ready = false;
+        let ready = false;
 
-    async function vb1000() {
-        let host = window.location.host;
-        while (true) {
-            await delay(1000);
-            if (ready) {
-                let infreq = await axios.post("/").catch(async (e) => {
-                    console.log(e);
-                    await delay(5000);
-                    return {"data": {"ok": false}}
-                });
-                //alert(infreq.data.message.length);infreq.data.ok
-                // alert(infreq.data.ok);
-                if (infreq.data.ok) {
-                    //alert(infreq.data.message);
-                    await window.navigator.vibrate(infreq.data.message);
-                    await delay(infreq.data.message.reduce((a, b) => a + b, 0) + 10000);
+        async function vb1000() {
+            let host = window.location.host;
+            const canVibrate = window.navigator.vibrate;
+            while (true) {
+                await delay(1000);
+                if (ready) {
+                    let infreq = await axios.post("/").catch(async (e) => {
+                        console.log(e);
+                        await delay(5000);
+                        return { data: { ok: false } };
+                    });
+                    //alert(infreq.data.message.length);infreq.data.ok
+                    // alert(infreq.data.ok);
+                    if (infreq.data.ok) {
+                        //alert(infreq.data.message);
+                        if (canVibrate) {
+                            await window.navigator.vibrate(infreq.data.message);
+                        } else {
+                            console.log(infreq.data.message);
+                        }
+                        await delay(
+                            infreq.data.message.reduce((a, b) => a + b, 0) +
+                                10000,
+                        );
+                    }
                 }
             }
         }
-    };
-    async function activateVb() {
-        document.documentElement.classList.remove("inactive");
-        document.documentElement.classList.add("active");
-        ready = true;
-    };
-    function vb() {
-        if (document.documentElement.classList.contains("inactive")) {
-            window.navigator.vibrate(300);
-
+        async function activateVb() {
+            document.documentElement.classList.remove("inactive");
+            document.documentElement.classList.add("active");
+            ready = true;
         }
-        
-    }
-</script>
-<body onload="vb1000()">
-    <div class="ff" onclick="vb(); activateVb();">Не історики творять історію, а люди</div>
-</body>
+        function vb() {
+            const canVibrate = window.navigator.vibrate;
+            if (
+                document.documentElement.classList.contains("inactive") &&
+                canVibrate
+            ) {
+                window.navigator.vibrate(300);
+            }
+        }
+    </script>
+    <body onload="vb1000()">
+        <div class="ff" onclick="vb(); activateVb();">
+            Не історики творять історію, а люди
+        </div>
+    </body>
 </html>
